@@ -18,14 +18,11 @@ def L(i, t, X):
 			Li *= (t - X[j]) / (X[i] - X[j])
 	return Li
 
-#对数据（Xi, Yi）进行插值，次数为X.size
-def P(t, X, Y):
-	ans = 0
-	for i in range(0, X.size):
-		ans += Y[i]*L(i, t, X)
-	return ans
+#对数据（Xi, Yi）进行插值，次数为X.size i=1..n
+#函数sum([1,2,3])求和对象为列表
+P = lambda t, X, Y: sum([Y[i]*L(i, t, X) for i in range(0, X.size)]) 
 
-y = lambda x: 1 / (1 + 25 * x ** 2)
+y = lambda x: 1 / (1 + 25 * x**2)
 #y = lambda x: 3 * x**4 + 2.3 * x **2 + 1.5
 #y = lambda x: 1/(3*x**6 + 1.3*x**2 + 1)
 
@@ -43,8 +40,7 @@ if __name__ == '__main__':
 		Y = y(X)
 
 		#Pn为进行n(n = X.size)次插值后得到的函数。
-		Pn = lambda x: P(x, X, Y)
-
+		Pn = lambda t: P(t, X, Y)
 		integrand = lambda x: abs(Pn(x) - y(x))
 
 		err, error = integrate.quad(integrand, a, b, limit = 1001)
@@ -56,35 +52,41 @@ if __name__ == '__main__':
 	print "nBest = ", nBest
 	print "errBest = ", errBest
 
-	n = nBest
+	n = 10
 	X = np.linspace(a, b, n + 1)
 	Y = y(X)
 	Pn = lambda x: P(x, X, Y)
+
+	#计算误差面积
+	integrand = lambda x: abs(Pn(x) - y(x))
+	err, error = integrate.quad(integrand, a, b, limit = 1001)
+
+	#与原来函数进行比较
 	testX = np.linspace(a,b,20001)
 	testY = y(testX)
 	testF = Pn(testX)
-	#for i in range(0, testX.size):
-		#if (abs(testY[i] - testF[i])> 0.01):
-			#print i
-			#print "ERROR"
 
-	#up把插值所得的函数图像向上提升up个数值，方便比较
+	#画图
 	Fig = plt.figure(1)
 
 	ax1 = plt.subplot(211)
 	ax2 = plt.subplot(212)
+
 	plt.sca(ax1)
-	plt.title(u"Lagrange, n = %d, err = %.3f" % (nBest, errBest))
+	plt.title(u"Lagrange, n = %d, err = %.3f" % (n, err))
+	plt.ylim(-5, 5)
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
 			linestyle = "-", label = "f(x)")
 	plt.plot(testX, testF, color = "b", 
 			linestyle = "-", label = "Pn(x)")
-	plt.legend(loc='upper left')
+	plt.legend(loc='upper right')
+
 	plt.sca(ax2)
+	plt.ylim(-5,5)
 	plt.plot(testX, testF - testY, color = "g", 
 			linestyle = "-", label = "Pn(x) - f(x)")
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
-	plt.legend(loc='upper left')
+	plt.legend(loc='upper right')
 	plt.show()
 	Fig.savefig("Lagrange-interpolation.pdf")
