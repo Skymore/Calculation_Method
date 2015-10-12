@@ -97,14 +97,14 @@ if __name__ == '__main__':
 	#subplot(222)在区域2(左上区域)中创建一个轴对象.
 	#subplot(212)把绘图区域等分为2行*1列共2个区域,
 	#pl.subplot(212)在区域2(下区域)创建一个轴对象.
-	ax1 = plt.subplot(311)
-	ax2 = plt.subplot(312)
-	ax3 = plt.subplot(313)
+	ax1 = plt.subplot(211)
+	#ax2 = plt.subplot(312)
+	ax3 = plt.subplot(212)
 	
 	#左上画f(x)及其取点和Hn(x)图像
 	plt.sca(ax1)
 	plt.title(u"Hermite, n = %d, err = %.3f" % (n, err))
-	plt.ylim(-5, 5)
+	plt.ylim(-4, 4)
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
 			linestyle = "-", label = "f(x)")
@@ -113,16 +113,16 @@ if __name__ == '__main__':
 	plt.legend(loc='upper right')
 
 	#右上画f'(x)及其取点
-	plt.sca(ax2)
-	plt.plot(X, Yd, 'ro')
-	plt.plot(testX, testYd, color = "r", 
-			linestyle = "-", label = "f'(x)")
-	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
-	plt.legend(loc='upper right')
+	#plt.sca(ax2)
+	#plt.plot(X, Yd, 'ro')
+	#plt.plot(testX, testYd, color = "r", 
+	#		linestyle = "-", label = "f'(x)")
+	#plt.plot(testX, 0*testY, color = "black", linestyle = "--")
+	#plt.legend(loc='upper right')
 
 	#下方画Hn(x) - f(x)，即误差
 	plt.sca(ax3)
-	plt.ylim(-5,5)
+	plt.ylim(-4, 4)
 	plt.plot(testX, testF - testY, color = "g", 
 			linestyle = "-", label = "Pn(x) - f(x)")
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")

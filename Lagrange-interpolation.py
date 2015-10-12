@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
 	plt.sca(ax1)
 	plt.title(u"Lagrange, n = %d, err = %.3f" % (n, err))
-	plt.ylim(-5, 5)
+	plt.ylim(-4, 4)
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
 			linestyle = "-", label = "f(x)")
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 	plt.legend(loc='upper right')
 
 	plt.sca(ax2)
-	plt.ylim(-5,5)
+	plt.ylim(-4, 4)
 	plt.plot(testX, testF - testY, color = "g", 
 			linestyle = "-", label = "Pn(x) - f(x)")
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
