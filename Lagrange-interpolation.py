@@ -8,6 +8,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 from scipy import integrate
 
 #拉格朗日插值基函数
@@ -18,7 +19,7 @@ def L(i, t, X):
 			Li *= (t - X[j]) / (X[i] - X[j])
 	return Li
 
-#对数据（Xi, Yi）进行插值，次数为X.size i=1..n
+#对数据（Xi, Yi）进行插值，次数为X.size i=0..n
 #函数sum([1,2,3])求和对象为列表
 P = lambda t, X, Y: sum([Y[i]*L(i, t, X) for i in range(0, X.size)]) 
 
@@ -77,9 +78,9 @@ if __name__ == '__main__':
 	plt.ylim(-4, 4)
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
-			linestyle = "-", label = "f(x)")
+			linestyle = "-", label = u"原函数")
 	plt.plot(testX, testF, color = "b", 
-			linestyle = "-", label = "Pn(x)")
+			linestyle = "-", label = u"插值函数")
 	plt.legend(loc='upper right')
 
 	plt.sca(ax2)
@@ -89,4 +90,4 @@ if __name__ == '__main__':
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
 	plt.legend(loc='upper right')
 	plt.show()
-	Fig.savefig("Lagrange-interpolation.pdf")
+	Fig.savefig("Lagrange-interpolation.jpg")

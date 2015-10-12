@@ -106,9 +106,9 @@ if __name__ == '__main__':
 	plt.ylim(-4, 4)
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
-			linestyle = "-", label = "f(x)")
+			linestyle = "-", label = u"原函数")
 	plt.plot(testX, testF, color = "b", 
-			linestyle = "-", label = "Hn(x)")
+			linestyle = "-", label = u"插值函数")
 	plt.legend(loc='upper right')
 
 	#右上画f'(x)及其取点
@@ -128,4 +128,4 @@ if __name__ == '__main__':
 	plt.legend(loc='upper right')
 
 	plt.show()
-	Fig.savefig("Hermite-interpolation.pdf")
+	Fig.savefig("Hermite-interpolation.jpg")
