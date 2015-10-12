@@ -33,12 +33,12 @@ if __name__ == '__main__':
 	#X Y为生成插值函数的数据，testX testY为测试插值函数图像的数据
 	#n为插值次数,X[i](i = 0...n)    X[0] = a, X[n] = b 等间距把[a,b]分为n份
 
-	a = -3
-	b = 3
+	a = -2
+	b = 2
 
 	nBest = 2
 	errBest = 9999
-	for n in range(2, 21, 2):
+	for n in range(1, 11, 1):
 		X = np.linspace(a, b, n + 1)
 		Y = y(X)
 
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
 		integrand = lambda x: abs(Pn(x) - y(x))
 
-		err, error = integrate.quad(integrand, a, b, limit = 101)
+		err, error = integrate.quad(integrand, a, b, limit = 1001)
 
 		print "n = ", n, "err = ", err
 		if(err < errBest):
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	ax1 = plt.subplot(211)
 	ax2 = plt.subplot(212)
 	plt.sca(ax1)
-	plt.title(u"拉格朗日插值 , n = %d, err = %.2f" % (nBest, errBest))
+	plt.title(u"Lagrange, n = %d, err = %.3f" % (nBest, errBest))
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
 			linestyle = "-", label = "f(x)")
@@ -86,5 +86,5 @@ if __name__ == '__main__':
 			linestyle = "-", label = "Pn(x) - f(x)")
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
 	plt.legend(loc='upper left')
-	#plt.show()
-	Fig.savefig("Hermite-interpolation.pdf")
+	plt.show()
+	Fig.savefig("Lagrange-interpolation.pdf")

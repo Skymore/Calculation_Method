@@ -7,9 +7,18 @@
 #-------------------------------------------------------
 #H2n+1(x) = sum(j=0,n) [y[j]*Aj(x) + y'[j]*Bj(x)]
 #Li(x) = 连乘j = 0..n,j!=i  (x - X[j]) / (X[i] - X[j])
-#Ai(x) = [1 - 2(x-X[i])
-#		*sum(j=0,n, j!=i) (1/(X[i]-X[j]))]*Li^2(x)
+#Ai(x) = [1 - 2(x-X[i])*Ld(i,x)*Li^2(x)
 #Bi(x) = (x - X[i])*Li^2(x)
+
+#设H(x) = sum(i=0...n) (Y[i]*Ai(x) + Yd[i]*Bi(x))
+#Ai(X[i])  = delta(i,j) j=0..n
+#Ai'(X[j]) = 0			j=0..n
+#设Ai(x) = (a + b(x-X[i]))*Li^2(x)
+#解得 a = 1 b = -2
+
+
+#Bi(X[j])  = 0 j=0...n
+#Bi'(X[i]) = delta(i,j) j=0..n
 #-------------------------------------------------------
 
 import numpy as np
@@ -53,11 +62,11 @@ if __name__ == '__main__':
 	#X Y为生成插值函数的数据，testX testY为测试插值函数图像的数据
 	#n为插值次数,X[i](i = 0...n)    X[0] = a, X[n] = b 等间距把[a,b]分为n份
 
-	a = -10
-	b = 10
+	a = -3
+	b = 3
 	nBest = 2
 	errBest = 9999
-	for n in range(2, 21, 2):
+	for n in range(1, 21, 2):
 		X = np.linspace(a, b, n + 1)
 		Y = y(X)
 		Yd = yd(X)
@@ -66,7 +75,7 @@ if __name__ == '__main__':
 		Hn = lambda t: H(t, X, Y, Yd)
 
 		integrand = lambda x: abs(Hn(x) - y(x))
-		err, error = integrate.quad(integrand, a, b, limit = 101)
+		err, error = integrate.quad(integrand, a, b, limit = 1001)
 		print "n = ", n, "err = ", err
 		if(err < errBest):
 			nBest = n
@@ -97,7 +106,7 @@ if __name__ == '__main__':
 	
 	#左上画f(x)及其取点和Hn(x)图像
 	plt.sca(ax1)
-	plt.title(u"埃尔米特插值 , n = %d, err = %.2f" % (nBest, errBest))
+	plt.title(u"Hermite, n = %d, err = %.3f" % (nBest, errBest))
 	plt.plot(X, Y, 'ro')
 	plt.plot(testX, testY, color = "r", 
 			linestyle = "-", label = "f(x)")
@@ -120,5 +129,5 @@ if __name__ == '__main__':
 	plt.plot(testX, 0*testY, color = "black", linestyle = "--")
 	plt.legend(loc='upper left')
 
-	#plt.show()
+	plt.show()
 	Fig.savefig("Hermite-interpolation.pdf")
