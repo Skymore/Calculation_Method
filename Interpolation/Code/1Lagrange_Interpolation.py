@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	b = 1
 	testX = np.linspace(a, b, 2001)
 	testY = y(testX)
-
+	path = u'/Users/sky/Desktop/计算方法/Interpolation/Figure/'  # 图片存储地址
 	# 图3：Runge(龙格)现象，并记录误差err
 	fig3 = plt.figure(13)
 	plt.title(u'Runge(龙格)现象', fontsize = 15)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
 	#图3：Lagrange Runge
 	ax3_1.grid(True)
 	ax3_1.plot(testX, testY, color = 'red', linestyle = '-', linewidth = 2, label = u'原函数')
-	fig3.savefig(u'/Users/sky/Desktop/计算方法/Lagrange-interpolation_3.jpg')
+	fig3.savefig(path + u'Lagrange_Runge.jpg')
 
 	#图4：err随节点数的变化(Lagrange VS Hermite)
 	fig4 = plt.figure(14)
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 	ax4_1.plot(nList + 1, errList, 'o', color = 'blue')
 	ax4_1.grid(True)
 	ax4_1.legend(loc = 'upper right')
-	fig4.savefig(u'/Users/sky/Desktop/计算方法/误差对比1_2.jpg')
+	fig4.savefig(path + u'误差对比1_2.jpg')
 
 	#图2：err随多项式次数的变化(Lagrange VS Hermite)
 	fig2 = plt.figure(12)
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 	ax2_1.plot(nList, errList, 'o', color = 'blue')
 	ax2_1.grid(True)
 	ax2_1.legend(loc = 'upper right')
-	fig2.savefig(u'/Users/sky/Desktop/计算方法/误差对比1_1.jpg')
+	fig2.savefig(path + u'误差对比1_1.jpg')
 
 
 	#图1：Lagrange插值
@@ -136,4 +136,4 @@ if __name__ == '__main__':
 	ax1_1.plot(X3, Y3, 'o', color = 'g')
 	ax1_1.grid(True)
 	ax1_1.legend(loc = 'upper right')
-	fig1.savefig(u'/Users/sky/Desktop/计算方法/Lagrange-interpolation_1.jpg')
+	fig1.savefig(path + u'Lagrange_1.jpg')
