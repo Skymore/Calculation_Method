@@ -125,6 +125,23 @@ if __name__ == '__main__':
 	nList = np.nonzero(err)[0] 
 	errList = np.log10(err[err!=0])
 
+	# 图3：对散点插值对比(PCHIP VS Cubic_Spline)
+	X = np.array([-3, -2, -1, 0, 1, 2, 3])
+	Y = np.array([-1, -1, -1, 0, 1, 1, 1])
+	Yd= np.array([ 0,  0,  0, 1, 0, 0, 0])
+	testX2 = np.linspace(-3, 3, 2001)
+	pc = pchip(X, Y, Yd, testX2)
+	sp = Cubic_Spline(X, Y, testX2)
+	fig3 = plt.figure(43)
+	ax3_1 = fig3.add_subplot(111)
+	ax3_1.set_ylim(-1.5, 1.5)
+	ax3_1.plot(testX2, pc, color = 'g', label = 'PCHIP')
+	ax3_1.plot(testX2, sp, color = 'r', label = 'Cubic Spline')
+	ax3_1.plot(X, Y, 'o', color = 'b', label = 'data')
+	ax3_1.grid(True)
+	ax3_1.legend(loc = 'lower right')
+	fig3.savefig(path + u'散点插值对比2.jpg')
+
 	# 图2：err随节点数的变化(PCHIP VS Cubic_Spline)
 	fig2 = plt.figure(32)
 	plt.title(u'误差面积随节点数的变化', fontsize = 15)
