@@ -158,7 +158,6 @@ if __name__ == '__main__':
 	ax2_1.legend(loc = 'upper right')
 	fig2.savefig(path + u'误差对比2.jpg')
 
-
 	#图1：Cubic_Spline
 	n = 5
 	X1 = np.linspace(a, b, n + 1)
